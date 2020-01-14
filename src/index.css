@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Eras-ITC';
+  font-weight: 100;
+  src: url('./fonts/ErasMediumITC.ttf') format('wof2'),
+  url('./fonts/ErasMediumITC.ttf') format('woff'),
+  url('./fonts/ErasMediumITC.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 100;
+  src: url('./fonts/Roboto-Regular.ttf') format('wof2'),
+  url('./fonts/Roboto-Regular.ttf') format('woff'),
+  url('./fonts/Roboto-Regular.ttf') format('truetype');
+}
