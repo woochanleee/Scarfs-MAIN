@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import Background from '../../imgs/Main/background.png';
+import Background2 from '../../imgs/Main/background2.png';
 import scrollDown from '../../imgs/Main/scrollButton.png';
 export const MainBackground = styled.div`
     width: 100vw;
     height: 100vh;
-    background-image: url(${Background});
+    /* background-image: url(${Background}); */
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0vw 0vh;
+    background-color: ${props => props.page === 1 ? '#000000' : '#ffffff'};
     > header {
         height: 9%;
-        min-height: 80px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -22,7 +25,8 @@ export const MainBackground = styled.div`
             > h2 {
                 font-family: 'Eras-ITC';
                 display: flex;
-                color: #ffffff;
+                color: ${({ page }) => page === 1 ? '#ffffff' : '#000000'};
+                transition: linear 300ms;
                 margin: 0%;
             }
             > ul {
@@ -36,7 +40,8 @@ export const MainBackground = styled.div`
                         color: #ffffff;
                         font-family: 'Roboto';
                         font-weight: 600;
-
+                        color: ${({ page }) => page === 1 ? '#ffffff' : '#000000'};
+                        transition: linear 300ms;
                     }
                     & ~ & {
                         margin-left: 24px;
@@ -106,7 +111,7 @@ export const MainBackground = styled.div`
 
 export const HomeWorkListWrapper = styled('div')`
     margin-top: 48px;
-    max-height: 272px;
+    height: 272px;
     overflow-y: scroll;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
@@ -172,6 +177,8 @@ export const HomeWorkItemWrapper = styled('div')`
 export const HomeWorkStateBlock = styled.div`
     display: flex;
     align-items: flex-start;
+    opacity: ${({ page }) => page === 1 ? '1' : '0'};
+    transition: linear 300ms;
     > div:nth-child(2) {
         display: flex;
         align-items: flex-start;
@@ -206,6 +213,26 @@ export const ScrollStateBlock = styled.div`
         > img {
             object-fit: contain;
         }
+        > div {
+            width: 26px;
+            height: 15.99px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            > div:nth-child(1) {
+                width: ${({ page }) => page === 1 ? '26px' : '21px'};
+                height: ${({ page }) => page === 1 ? '3.24px' : '2.5px'};
+                background-color: ${({ page }) => page === 1 ? '#FF5700' : '#2E2E2E'};
+                transition: width, height, background-color, linear 300ms;
+            }
+            > div:nth-child(2) {
+                width: ${({ page }) => page === 2 ? '26px' : '21px'};
+                height: ${({ page }) => page === 2 ? '3.24px' : '2.5px'};
+                background-color: ${({ page }) => page === 1 ? '#B7B7B7' : '#FF5700'};
+                transition: width, height, background-color, linear 300ms;
+            }
+        }
     }
 `;
 
@@ -220,6 +247,7 @@ export const MyProfileBlock = styled.div`
     padding: 8px 16px 12px 16px;
     box-sizing: border-box;
     color: #ffffff;
+    margin-right: 30px;
     > h3 {
         font-family: 'Roboto';
         font-size: 20px;
@@ -252,4 +280,43 @@ export const ScrollButton = styled.button`
     object-fit: contain;
     cursor: pointer;
     outline: none;
+`;
+
+export const HomeWorkBoardWrapper = styled.div`
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1274px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > h1 {
+        font-family: 'Roboto';
+        font-size: 45px;
+        margin: 0;
+    }
+    > hr {
+        width: 85px;
+        height: 5px;
+        background-color: #FF5700;
+        border: none;
+        margin: 0;
+    }
+`;
+
+export const HomeWorkTable = styled.table`
+    width: 100%;
+    background-color: #ffffff;
+    > thead {
+        > tr {
+            border-top: 3px solid #858585;
+        }
+    }
+    > tbody {
+        > tr {
+            border: 1px solid #858585;
+        }
+    }
 `;
