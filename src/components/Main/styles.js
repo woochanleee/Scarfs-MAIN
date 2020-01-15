@@ -320,3 +320,7 @@ export const HomeWorkTable = styled.table`
         }
     }
 `;
+
+export const HomeWorkBoardItemBlock = styled.tr`
+
+`;
