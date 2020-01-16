@@ -1,10 +1,24 @@
 import React from 'react';
-import { HomeWorkBoardWrapper, HomeWorkTable } from './styles';
+import { NavLink } from 'react-router-dom';
+import { HomeWorkBoardWrapper, HomeWorkTable, PaginationWrapper } from './styles';
 import HomeWOrkBoardItem from './HomeWorkBoardItem';
 import importantIcon from '../../imgs/Main/importantIcon.png';
-
+import oIcon from '../../imgs/Main/oIcon.png';
+import xIcon from '../../imgs/Main/xIcon.png';
+import prevButton from '../../imgs/Main/prevButton.png';
+import nextButton from '../../imgs/Main/nextButton.png';
 
 const HomeWorkBoardList = () => {
+    const activeStyle = {
+        display: 'block',
+        width: '30px',
+        height: '30px',
+        border: '1px solid #2E2E2E',
+        backgroundColor: '#ffffff',
+        boxSizing: 'border-box',
+        color: '#1A1A1A',
+        fontFamily: 'Roboto'
+    };         
     const boadrList = [
         {
             id: 1,
@@ -15,6 +29,7 @@ const HomeWorkBoardList = () => {
             views: 53,
             team: false,
             submit: true,
+            important: true
         },
         {
             id: 2,
@@ -91,9 +106,9 @@ const HomeWorkBoardList = () => {
         <HomeWorkBoardWrapper>
             <h1>과제안내</h1>
             <hr />
-            <HomeWorkTable>
-                <thead>
-                    <tr>
+            <div>
+                <header>
+                    <div>
                         <th>유형</th>
                         <th>제목</th>
                         <th>작성일</th>
@@ -101,14 +116,38 @@ const HomeWorkBoardList = () => {
                         <th>조회수</th>
                         <th>팀원</th>
                         <th>제출여부</th>
-                    </tr>
-                </thead>
-                <tbody>
+                    </div>
+                </header>
+                <main>
                     {
-                        boadrList.map(data => <HomeWOrkBoardItem data={data} />)
+                        boadrList.map(data => <div>
+                            <td>{data.type}</td>
+                            <td>{data.title}</td>
+                            <td>{data.date}</td>
+                            <td>{data.endDate}</td>
+                            <td>{data.views}</td>
+                            <td><img src={data.team ? oIcon : xIcon} /></td>
+                            <td><img src={data.submit ? oIcon : xIcon} /></td>
+                            {data.important ? <img src={importantIcon} /> : ''}
+                        </div>)
                     }
-                </tbody>
-            </HomeWorkTable>
+                </main>
+            </div>
+            <PaginationWrapper>
+                <div>
+                    <img src={prevButton} />
+                </div>
+                <ul>
+                    <li><NavLink exact to="/1" activeStyle={activeStyle}>1</NavLink></li>
+                    <li><NavLink exact to="/2" activeStyle={activeStyle}>2</NavLink></li>
+                    <li><NavLink exact to="/3" activeStyle={activeStyle}>3</NavLink></li>
+                    <li><NavLink exact to="/4" activeStyle={activeStyle}>4</NavLink></li>
+                    <li><NavLink exact to="/5" activeStyle={activeStyle}>5</NavLink></li>
+                </ul>
+                <div>
+                    <img src={nextButton} />
+                </div>
+            </PaginationWrapper>
         </HomeWorkBoardWrapper>
     );
 };
