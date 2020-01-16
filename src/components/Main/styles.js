@@ -239,7 +239,7 @@ export const ScrollStateBlock = styled.div`
 export const MyProfileBlock = styled.div`
     width: 250px;
     height: 106px;
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -284,43 +284,129 @@ export const ScrollButton = styled.button`
 
 export const HomeWorkBoardWrapper = styled.div`
     position: absolute;
-    top: 30%;
+    top: 8%;
     left: 50%;
     transform: translateX(-50%);
     width: 1274px;
-    height: 600px;
+    height: 790px;
     display: flex;
     flex-direction: column;
     align-items: center;
     > h1 {
         font-family: 'Roboto';
-        font-size: 45px;
+        font-size: 30px;
         margin: 0;
+        margin-bottom: 10px;
     }
     > hr {
-        width: 85px;
+        width: 55px;
         height: 5px;
         background-color: #FF5700;
         border: none;
         margin: 0;
+        margin-bottom: 30px;
+    }
+    > div {
+        width: 1274px;
+        text-align: center;
+        border-top: 2px solid #858585;
+        background-color: #ffffff;
+        box-shadow: 0px 8px 16px 0px grey;
+        > header > tr > th {
+            font-weight: bold;
+        }
+        div {
+            width: 100%;
+            border-top: 1px solid #858585;
+            display: flex;
+            > img {
+                position: absolute;
+                left: -32.7px;
+            }
+        }
+        th, td {
+            font-family: 'Roboto';
+            width: 150px;
+            height: 67px;
+            line-height: 67px;
+            &:nth-child(2) {                
+                flex: 1;
+            }
+        }
+        tr {
+            border-top: 1px solid;
+            border-color: #000000;
+        }
     }
 `;
 
 export const HomeWorkTable = styled.table`
     width: 100%;
-    background-color: #ffffff;
+    background-color: #000000;
     > thead {
+        /* border: 1px solid black; */
+        /* border-color: inherit; */
         > tr {
-            border-top: 3px solid #858585;
+            /* border-top: 3px solid #858585; */
+            /* border-color: inherit; */
+            > th {
+                /* border: 1px solid white; */
+            }
         }
     }
     > tbody {
-        > tr {
-            border: 1px solid #858585;
-        }
+        /* border: 1px solid black; */
+        /* border-color: inherit; */
     }
 `;
 
 export const HomeWorkBoardItemBlock = styled.tr`
+    /* border: 1px solid #858585; */
+    color: black;
+    > td {
+        /* border: 1px solid white; */
+    }
+`;
 
+export const PaginationWrapper = styled.footer`
+    width: 230px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 19px;
+    > div {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #2E2E2E;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > img {
+            width: 10px;
+            height: 10px;
+            
+        }
+    }
+    > ul {
+        width: 130px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        > li {
+            margin: 0;
+            list-style: none;
+            text-align: center;
+            line-height: 30px;
+            > a {
+                text-decoration: none;
+                color: #858585;
+            }
+        }
+        li ~ li {
+            margin-left: 10px;
+        }
+    }
 `;
