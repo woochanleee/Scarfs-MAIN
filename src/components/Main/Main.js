@@ -6,6 +6,7 @@ import HomeWorkBoardList from './HomeWorkBoardList';
 import list from '../../imgs/Main/list.png';
 import stair from '../../imgs/Main/stair.png';
 import scrollDown from '../../imgs/Main/scrollDown.png';
+import scrollDown2 from '../../imgs/Main/scrollDown2.png';
 import MyProfile from './MyProfile';
 import logoutButton from '../../imgs/Main/logoutButton.png';
 import loginButton from '../../imgs/Main/loginButton.png';
@@ -92,7 +93,7 @@ const Main = () => {
                                     <div />
                                     <div />
                                 </div>
-                                <img src={scrollDown} />
+                                <img src={page === 1 ? scrollDown : scrollDown2} />
                             </div>
                         </S.ScrollStateBlock>
                     </aside>
