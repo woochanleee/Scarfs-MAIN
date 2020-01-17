@@ -13,6 +13,8 @@ import loginButton from '../../imgs/Main/loginButton.png';
 import signUpButton from '../../imgs/Main/signUpButton.png';
 import Background from '../../imgs/Main/background.png';
 import Background2 from '../../imgs/Main/background2.png';
+import SignUp from '../SignUp/SignUp';
+import Login from '../Login/Login';
 
 const Main = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -45,75 +47,79 @@ const Main = () => {
         pageBackground.current.style.backgroundImage = `url(${Background})`;
     }, []);
     return (
-        <S.MainBackground page={page} ref={pageBackground}>
-            <header>
-                <div>
-                    <h2>SCARFS</h2>
-                    <ul>
-                        <li>
-                            <Link>과제</Link>
-                        </li>
-                        <li>
-                            <Link>QnA</Link>
-                        </li>
-                    </ul>
-                </div>
-            </header>
-            <main>
-                <div>
-                    <section>
+        <>
+            <S.MainBackground page={page} ref={pageBackground}>
+                <header>
+                    <div>
+                        <h2>SCARFS</h2>
+                        <ul>
+                            <li>
+                                <Link>과제</Link>
+                            </li>
+                            <li>
+                                <Link>QnA</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </header>
+                <main>
+                    <div>
+                        <section>
+                            {
+                                page === 1 ? 
+                                    <article>
+                                        <p>DAEDEOK SOFTWARE MEISTER HIGH SCHOOL</p>
+                                        <h1>2020 SCIENCE CLASS</h1>
+                                        <hr />
+                                        <p>대덕소프트웨어마이스터고등학교</p>
+                                        <h3>2020 과학수업</h3>
+                                    </article> :
+                                    ''
+                            }
+                        </section>
                         {
-                            page === 1 ? 
-                                <article>
-                                    <p>DAEDEOK SOFTWARE MEISTER HIGH SCHOOL</p>
-                                    <h1>2020 SCIENCE CLASS</h1>
-                                    <hr />
-                                    <p>대덕소프트웨어마이스터고등학교</p>
-                                    <h3>2020 과학수업</h3>
-                                </article> :
-                                ''
+                            page === 2 ?
+                                <HomeWorkBoardList/> :
+                            ''
                         }
-                    </section>
-                    {
-                        page === 2 ?
-                            <HomeWorkBoardList/> :
-                        ''
-                    }
-                    <aside>
-                        <S.HomeWorkStateBlock page={page} ref={homeWorkStateBlock}>
-                            <HomeWorkList />
-                            <div>
-                                <h4>현재 과제</h4>
-                                <img src={list} />
-                            </div>
-                        </S.HomeWorkStateBlock>
-                        <S.ScrollStateBlock page={page}>
-                            <div>
+                        <aside>
+                            <S.HomeWorkStateBlock page={page} ref={homeWorkStateBlock}>
+                                <HomeWorkList />
                                 <div>
-                                    <div />
-                                    <div />
+                                    <h4>현재 과제</h4>
+                                    <img src={list} />
                                 </div>
-                                <img src={page === 1 ? scrollDown : scrollDown2} />
-                            </div>
-                        </S.ScrollStateBlock>
-                    </aside>
-                </div>
-            </main>
-            <footer>
-                {
-                    isLogin ? 
-                    <>
-                        <MyProfile />
-                        <img src={logoutButton} />
-                    </> :
-                    <>
-                        <img src={loginButton} />
-                        <img src={signUpButton}/>
-                    </>
-                }
-            </footer>
-            <S.ScrollButton onClick={() => setPage(state => state === 1 ? 2 : 1)} />
-        </S.MainBackground>
+                            </S.HomeWorkStateBlock>
+                            <S.ScrollStateBlock page={page}>
+                                <div>
+                                    <div>
+                                        <div />
+                                        <div />
+                                    </div>
+                                    <img src={page === 1 ? scrollDown : scrollDown2} />
+                                </div>
+                            </S.ScrollStateBlock>
+                        </aside>
+                    </div>
+                </main>
+                <footer>
+                    {
+                        isLogin ? 
+                        <>
+                            <MyProfile />
+                            <img src={logoutButton} />
+                        </> :
+                        <>
+                            <img src={loginButton} />
+                            <img src={signUpButton}/>
+                        </>
+                    }
+                </footer>
+                <S.ScrollButton onClick={() => setPage(state => state === 1 ? 2 : 1)} />
+            </S.MainBackground>
+            {/* <SignUp /> */}
+            <Login />
+        </>
     );
 };
 
