@@ -280,6 +280,7 @@ export const ScrollButton = styled.button`
     object-fit: contain;
     cursor: pointer;
     outline: none;
+    transform: translateX(-50%);
 `;
 
 export const HomeWorkBoardWrapper = styled.div`
