@@ -17,10 +17,14 @@ import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login'
 
 const Main = () => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [page, setPage] = useState(1);
     const pageBackground = useRef();
     const homeWorkStateBlock = useRef();
+    const [modalOn, setModalOn] = useState({
+        login: false,
+        signup: false
+    });
     useEffect(() => {
         pageBackground.current.style.backgroundPosition = `${page === 2 ? 'center -108vh' : 'center 100vh'}`;
         pageBackground.current.style.transition = '300ms linear';
@@ -110,15 +114,23 @@ const Main = () => {
                             <img src={logoutButton} />
                         </> :
                         <>
-                            <img src={loginButton} />
-                            <img src={signUpButton}/>
+                            <img src={loginButton} onClick={() => setModalOn({ ...modalOn, login: true })} />
+                            <img src={signUpButton} onClick={() => setModalOn({ ...modalOn, signup: true })}/>
                         </>
                     }
                 </footer>
                 <S.ScrollButton onClick={() => setPage(state => state === 1 ? 2 : 1)} />
             </S.MainBackground>
-            <SignUp />
-            {/* <Login /> */}
+            {
+                modalOn.signup === true ? 
+                    <SignUp modalOn={modalOn} setModalOn={setModalOn} /> :
+                    ''               
+            }
+            {
+                modalOn.login === true ? 
+                    <Login modalOn={modalOn} setModalOn={setModalOn} /> :
+                    ''
+            }
         </>
     );
 };
