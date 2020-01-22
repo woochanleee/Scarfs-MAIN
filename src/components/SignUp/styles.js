@@ -10,6 +10,7 @@ export const ModalBackground = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(26, 26, 26, 0.6);
+    overflow: hidden;
 `;
 
 export const LOGINSIGNUPWrapper = styled.div`
@@ -17,12 +18,14 @@ export const LOGINSIGNUPWrapper = styled.div`
     height: 533px;
     position: relative;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 150%;
+    transform: none;
+    ${props => props.sliding === true ? `transform: translate(-204%, -50%)` : ``};
     display: flex;
-`;
-
-export const SignUpLeftBlock = styled.div`
+    transition: all 0.5s linear;
+    `;
+    
+    export const SignUpLeftBlock = styled.div`
     width: 583px;
     height: 533px;
     background-image: url(${signupBackground});
@@ -203,7 +206,7 @@ export const LoginRightBlock = styled.div`
             background-color: transparent;
             width: 267px;
             height: 54px;
-            > a {
+            > a, > span {
                 margin: 0 auto;
                 line-height: 54px;
                 text-decoration: none;
