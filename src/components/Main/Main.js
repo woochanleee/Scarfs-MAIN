@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import * as S from './styles';
 import HomeWorkList from './HomeWorkList';
 import HomeWorkBoardList from './HomeWorkBoardList';
-import list from '../../imgs/Main/list.png';
-import stair from '../../imgs/Main/stair.png';
-import scrollDown from '../../imgs/Main/scrollDown.png';
-import scrollDown2 from '../../imgs/Main/scrollDown2.png';
+import list from '../../Imgs/Main/list.png';
+import stair from '../../Imgs/Main/stair.png';
+import scrollDown from '../../Imgs/Main/scrollDown.png';
+import scrollDown2 from '../../Imgs/Main/scrollDown2.png';
 import MyProfile from './MyProfile';
-import logoutButton from '../../imgs/Main/logoutButton.png';
-import loginButton from '../../imgs/Main/loginButton.png';
-import signUpButton from '../../imgs/Main/signUpButton.png';
-import Background from '../../imgs/Main/background.png';
-import Background2 from '../../imgs/Main/background2.png';
+import logoutButton from '../../Imgs/Main/logOutButton.png';
+import loginButton from '../../Imgs/Main/loginButton.png';
+import signUpButton from '../../Imgs/Main/signUpButton.png';
+import Background from '../../Imgs/Main/background.png';
+import Background2 from '../../Imgs/Main/background2.png';
 import SignUp from '../SignUp/SignUp';
-import Login from '../Login/Login';
+import Login from '../Login/Login'
 
 const Main = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -117,8 +117,8 @@ const Main = () => {
                 </footer>
                 <S.ScrollButton onClick={() => setPage(state => state === 1 ? 2 : 1)} />
             </S.MainBackground>
-            {/* <SignUp /> */}
-            <Login />
+            <SignUp />
+            {/* <Login /> */}
         </>
     );
 };

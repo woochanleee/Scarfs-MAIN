@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from '../SignUp/styles';
-import blackXButton from '../../imgs/SignUp/blackXButton.png';
+import blackXButton from '../../Imgs/SignUp/blackXButton.png';
 
 const Login = () => {
     return (
