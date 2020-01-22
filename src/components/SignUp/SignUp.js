@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as S from './styles';
 import blackXButton from '../../Imgs/SignUp/blackXButton.png';
 import checkIcon from '../../Imgs/SignUp/checkIcon.png';
 
-const SignUp = () => {
+const SignUp = ({modalOn, setModalOn}) => {
     const [page, setPage] = useState(1);
     const [authorization, setAutorization] = useState(false);
+    const [sliding, setSliding] = useState(false);
     const [isPaint, setIsPaint] = useState(false);
     const paintNextButton = () => {
         setIsPaint(true);
@@ -13,15 +14,20 @@ const SignUp = () => {
             setIsPaint(false);
         }, 1000);
     };
+    useEffect(() => {
+        setTimeout(() => {
+            setSliding(true);
+        }, 1)
+    }, []);
     return (
         <S.ModalBackground>
-            <S.LOGINSIGNUPWrapper>
+            <S.LOGINSIGNUPWrapper sliding={sliding}>
                 <S.SignUpLeftBlock>
                     <h1>WELCOME</h1>
                     <h4>SCARFS</h4>
                 </S.SignUpLeftBlock>
                 <S.SignUpRightBlock>
-                    <img src={blackXButton} />
+                    <img src={blackXButton}  onClick={() => setModalOn({ ...modalOn, signup: false })}/>
                     <S.MainWrapper>
                         <h1>SIGNUP</h1>
                         { 
