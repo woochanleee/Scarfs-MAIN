@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Background from '../../imgs/Main/background.png';
-import Background2 from '../../imgs/Main/background2.png';
-import scrollDown from '../../imgs/Main/scrollButton.png';
+import Background from '../../Imgs/Main/background.png';
+import Background2 from '../../Imgs/Main/background2.png';
+import scrollDown from '../../Imgs/Main/scrollButton.png';
 export const MainBackground = styled.div`
     width: 100vw;
     height: 100vh;
@@ -305,10 +305,11 @@ export const HomeWorkBoardWrapper = styled.div`
         background-color: #FF5700;
         border: none;
         margin: 0;
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     > div {
-        width: 1274px;
+        width: 100%;
+        height: 599px;
         text-align: center;
         border-top: 2px solid #858585;
         background-color: #ffffff;
