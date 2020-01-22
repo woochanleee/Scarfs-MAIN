@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import signupBackground from '../../imgs/SignUp/signupBackground.png';
-import loginBackground from '../../imgs/Login/loginBackground.png';
-
+import signupBackground from '../../Imgs/SignUp/signupBackground.png';
+import loginBackground from '../../Imgs/Login/loginBackground.png';
 
 export const ModalBackground = styled.div`
     width: 100vw;
@@ -100,40 +99,6 @@ export const MainWrapper = styled.main`
                     width: 100%;
                 }
             }
-        }
-    }
-    > footer {
-        margin-top: 32px;
-        width: 400px;
-        height: 40px;
-        background-color: #1D73FF;
-        background-color: #1A1A1A;
-        border-radius: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        > div {
-            height: 17px;
-            width: 218px;
-            display: flex;
-            justify-content: space-between;
-            > img {
-                width: 17px;
-                height: 17px;                
-            }
-            > p {
-                margin: 0;
-                font-family: 'Roboto';
-                font-size: 15px;
-                color: #F8F8F8;
-                line-height: 21px;
-            }
-        }
-        > h1 {
-            font-family: 'Roboto';
-            font-size: 19px;
-            color: #FFFFFF;
-            margin: 0;
         }
     }
 `;
@@ -253,5 +218,40 @@ export const LoginRightBlock = styled.div`
         margin: 0;
         margin-bottom: 8px;
         font-family: 'Eras-ITC';
+    }
+`;
+
+export const NextButtonBlock = styled.footer`
+    background-color: ${props => props.isPaint !== undefined ? (props.isPaint === false ? '#858585' : '#1D73FF') : '#1A1A1A'};
+    transition: all 0.5s linear;
+    margin-top: 32px;
+    width: 400px;
+    height: 40px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > div {
+        height: 17px;
+        width: 194px;
+        display: flex;
+        justify-content: space-between;
+        > img {
+            width: 17px;
+            height: 17px;                
+        }
+        > p {
+            margin: 0;
+            font-family: 'Roboto';
+            font-size: 15px;
+            color: #F8F8F8;
+            line-height: 21px;
+        }
+    }
+    > h1 {
+        font-family: 'Roboto';
+        font-size: 19px;
+        color: #FFFFFF;
+        margin: 0;
     }
 `;
