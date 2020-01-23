@@ -85,7 +85,7 @@ export const MainWrapper = styled.main`
             flex-direction: column;
             justify-content: space-between;
             margin-bottom: 8px;
-            > div {
+            > div, > form {
                 display: flex;
                 flex-direction: column;
                 width: 400px;

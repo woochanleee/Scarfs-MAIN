@@ -1,23 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from '../SignUp/styles';
 import blackXButton from '../../Imgs/SignUp/blackXButton.png';
+import ApiDefault, { IssuingToken } from '../utils';
 
 const Login = ({ modalOn, setModalOn }) => {
     const [authorization, setAutorization] = useState(false);
     const [sliding, setSliding] = useState(false);
     const [isPaint, setIsPaint] = useState(false);
-    const paintNextButton = () => {
-        setIsPaint(true);
-        setTimeout(() => {
-            setIsPaint(false);
-        }, 1000);
-    };
+    const [loginInfo, setLoginInfo] = useState({
+        email: null,
+        password: null
+    });
     useEffect(() => {
         setTimeout(() => {
             setSliding(true);
         }, 1)
     }, []);
+    const onChange = useCallback(e => {
+        setLoginInfo({
+            ...loginInfo,
+            [e.target.name]: e.target.value
+        });
+    }, [loginInfo]);
+    const submitLogin = useCallback(async (e) => {
+        console.log('로그인한다!')
+        e.preventDefault();
+        try {
+            const auth = await ApiDefault.post('/auth', {
+                userId: loginInfo.email,
+                userPw: loginInfo.password
+            });
+            localStorage.setItem('access_token', auth.data.accessToken);
+            localStorage.setItem('refresh_token', auth.data.refreshToken);
+        } catch (error) {
+            console.error('Data 없음', error);
+        }
+        let dieToken = true;
+        if (dieToken) {
+            IssuingToken().then(res => {
+                localStorage.setItem('access_token', res.data.accessToken);
+                localStorage.setItem('refresh_token', res.data.refreshToken);
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    }, [loginInfo]);
     return (
         <S.ModalBackground>
             <S.LOGINSIGNUPWrapper sliding={sliding}>             
@@ -28,17 +57,17 @@ const Login = ({ modalOn, setModalOn }) => {
                             <div>
                                 <div>
                                     <span>Email address</span>
-                                    <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" />
+                                    <S.LOGINSIGNUPInput name="email" placeholder="sample@dsm.hs.kr" onChange={onChange} />
                                 </div>
-                                <div>
+                                <form onSubmit={submitLogin}>
                                     <span>Password</span>
-                                    <S.LOGINSIGNUPInput placeholder="●●●●●●" />
-                                </div>
+                                    <S.LOGINSIGNUPInput type="password" name="password" placeholder="●●●●●●" onChange={onChange} />
+                                </form>
                             </div>
                         </section>
-                        <footer>
+                        <S.NextButtonBlock onClick={submitLogin}>
                             <h1>로그인</h1>
-                        </footer>
+                        </S.NextButtonBlock>
                     </S.MainWrapper>
                     <h4>2020 SCIENCE CLASS</h4>
                 </S.LoginLeftBlock>
