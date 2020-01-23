@@ -179,6 +179,7 @@ export const HomeWorkStateBlock = styled.div`
     align-items: flex-start;
     opacity: ${({ page }) => page === 1 ? '1' : '0'};
     transition: linear 300ms;
+    height: 272px;
     > div:nth-child(2) {
         display: flex;
         align-items: flex-start;

@@ -39,12 +39,13 @@ const Main = () => {
             else if (e.deltaY < 0 && page === 2)
                 setPage(page - 1);
         });
-        homeWorkStateBlock.current.addEventListener('mousewheel', e => {
-            if (page === 1)
-                e.stopPropagation();
-            else if (e.deltaY < 0 && page === 2)
-                setPage(page - 1);
-        });
+        if (homeWorkStateBlock.current !== undefined) 
+            homeWorkStateBlock.current.addEventListener('mousewheel', e => {
+                if (page === 1)
+                    e.stopPropagation();
+                else if (e.deltaY < 0 && page === 2)
+                    setPage(page - 1);
+            });
     }, [page]);
     useEffect(() => {
         pageBackground.current.style.backgroundPosition = '0% 0%';
@@ -87,13 +88,18 @@ const Main = () => {
                             ''
                         }
                         <aside>
-                            <S.HomeWorkStateBlock page={page} ref={homeWorkStateBlock}>
-                                <HomeWorkList />
-                                <div>
-                                    <h4>현재 과제</h4>
-                                    <img src={list} />
-                                </div>
-                            </S.HomeWorkStateBlock>
+                                <S.HomeWorkStateBlock page={page} ref={homeWorkStateBlock}>
+                                {
+                                    isLogin === true ?
+                                        <>
+                                            <HomeWorkList />
+                                            <div>
+                                                <h4>현재 과제</h4>
+                                                <img src={list} />
+                                            </div>
+                                        </> :                                    ''
+                                }
+                                    </S.HomeWorkStateBlock>
                             <S.ScrollStateBlock page={page}>
                                 <div>
                                     <div>
