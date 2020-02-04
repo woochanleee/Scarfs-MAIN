@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { HomeWorkBoardWrapper, HomeWorkTable, PaginationWrapper } from './styles';
-import HomeWOrkBoardItem from './HomeWorkBoardItem';
+import { HomeWorkBoardWrapper, PaginationWrapper } from './styles';
 import importantIcon from '../../Imgs/Main/importantIcon.png';
 import oIcon from '../../Imgs/Main/oIcon.png';
 import xIcon from '../../Imgs/Main/xIcon.png';
