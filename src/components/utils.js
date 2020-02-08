@@ -1,6 +1,10 @@
 import axios from 'axios';
-const url = "http://15.164.184.104:8888";
-const ApiDefault = axios.create({ baseURL : url });
+const url = "http://15.164.184.104:8888/";
+const ApiDefault = axios.create({ 
+    baseURL : url, 
+    headers: {
+    'Access-Control-Allow-Origin': '*'
+} });
 
 export default ApiDefault;
 

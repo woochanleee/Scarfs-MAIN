@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import * as S from './styles';
 import blackXButton from '../../Imgs/SignUp/blackXButton.png';
 import checkIcon from '../../Imgs/SignUp/checkIcon.png';
+import ApiDefault from '../utils';
+import axios from 'axios';
 
 const SignUp = ({modalOn, setModalOn}) => {
     const [page, setPage] = useState(1);
@@ -17,6 +19,7 @@ const SignUp = ({modalOn, setModalOn}) => {
         password: null,
         chkPassword: null,
     });
+    const [isClicked, setIsClicked] = useState(false);
     const paintNextButton = () => {
         setIsPaint(true);
         setTimeout(() => {
@@ -34,6 +37,49 @@ const SignUp = ({modalOn, setModalOn}) => {
         [e.target.name]: e.target.value
         });
     }, [signupInfo]);
+    const onSubmit = useCallback(e => {
+        if (page === 1) {
+            let form = new FormData();
+            form.append('email', signupInfo.email);
+            form.append('code', signupInfo.emailCode);
+            // ApiDefault.post('user/validemail', form).then(res => {
+            //     console.log(res);
+            //     setPage(2);
+            ApiDefault.post('auth', {
+                userEmail: '030219woo@naver.com',
+                userPw: "qwer1234"
+            }).catch(err => {
+                console.log(err);
+            })
+        } else if (page === 2) {
+
+        }
+    }, [signupInfo, page]);
+    const onCheckEmail = useCallback(() => {
+        let form = new FormData();
+        form.append('email', signupInfo.email);
+        axios({
+            url: 'http://15.164.184.104:8888/user/authemail',
+            method: 'post',
+            data: form,
+            headers: {
+                "Allow-Control-Allow-Origin": "*",
+                'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
+        // ApiDefault.post('​user​/authemail', form).then(res => {
+        //     console.log(res);
+        //     setIsClicked(true);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
+    }, [signupInfo.email]);
     return (
         <S.ModalBackground>
             <S.LOGINSIGNUPWrapper sliding={sliding}>
@@ -60,16 +106,20 @@ const SignUp = ({modalOn, setModalOn}) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <S.InputWrapperWithAuthorization>
-                                            <span>개인 인증코드</span>
+                                        <S.InputWrapperWithAuthorization isClicked={isClicked}>
+                                            <span>이메일 주소</span>
                                             <div>
-                                                <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange}  />
-                                                <button onClick={paintNextButton}>인증</button>
+                                                <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" name="email" onChange={onChange} />
+                                                <button onClick={onCheckEmail}>인증</button>
                                             </div>
                                         </S.InputWrapperWithAuthorization>
+                                        <div>
+                                            <span>이메일 인증</span>
+                                            <S.LOGINSIGNUPInput placeholder="이메일로 전송된 인증코드를 입력하세요." name="emailCode" onChange={onChange} />
+                                        </div>
                                     </div>
                                 </section>
-                                <S.NextButtonBlock isPaint={isPaint} onClick={() => setPage(2)} >
+                                <S.NextButtonBlock isPaint={isPaint} onClick={onSubmit} >
                                     {
                                         isPaint === true ?
                                             <div>
@@ -85,16 +135,12 @@ const SignUp = ({modalOn, setModalOn}) => {
                                 <section>
                                     <div>
                                         <S.InputWrapperWithAuthorization>
-                                            <span>이메일 주소</span>
+                                            <span>개인 인증코드</span>
                                             <div>
-                                                <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" name="email" onChange={onChange} />
-                                                <button>인증</button>
+                                                <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange}  />
+                                                <button onClick={paintNextButton}>인증</button>
                                             </div>
                                         </S.InputWrapperWithAuthorization>
-                                        <div>
-                                            <span>이메일 인증</span>
-                                            <S.LOGINSIGNUPInput placeholder="이메일로 전송된 인증코드를 입력하세요." name="emailCode" onChange={onChange} />
-                                        </div>
                                         <div>
                                             <span>비밀번호</span>
                                             <S.LOGINSIGNUPInput placeholder="6자 이상 12자 이하, 영문과 숫자 조합으로 만드세요." name="password" onChange={onChange} />
