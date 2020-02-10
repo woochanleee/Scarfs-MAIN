@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Background from '../../Imgs/Main/background.png';
-import Background2 from '../../Imgs/Main/background2.png';
-import scrollDown from '../../Imgs/Main/scrollButton.png';
+import Background from './img/background.png';
+import Background2 from './img/background2.png';
+import scrollDown from './img/scrollButton.png';
 export const MainBackground = styled.div`
     width: 100vw;
     height: 100vh;

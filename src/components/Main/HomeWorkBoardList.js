@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HomeWorkBoardWrapper, PaginationWrapper } from './styles';
-import importantIcon from '../../Imgs/Main/importantIcon.png';
-import oIcon from '../../Imgs/Main/oIcon.png';
-import xIcon from '../../Imgs/Main/xIcon.png';
-import prevButton from '../../Imgs/Main/prevButton.png';
-import nextButton from '../../Imgs/Main/nextButton.png';
+import importantIcon from './img/importantIcon.png';
+import oIcon from './img/oIcon.png';
+import xIcon from './img/xIcon.png';
+import prevButton from './img/prevButton.png';
+import nextButton from './img/nextButton.png';
 
 const HomeWorkBoardList = () => {
     const activeStyle = {

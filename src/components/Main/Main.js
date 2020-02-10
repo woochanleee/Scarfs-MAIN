@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import * as S from './styles';
 import HomeWorkList from './HomeWorkList';
 import HomeWorkBoardList from './HomeWorkBoardList';
-import list from '../../Imgs/Main/list.png';
-import stair from '../../Imgs/Main/stair.png';
-import scrollDown from '../../Imgs/Main/scrollDown.png';
-import scrollDown2 from '../../Imgs/Main/scrollDown2.png';
+import list from './img/list.png';
+import stair from './img/stair.png';
+import scrollDown from './img/scrollDown.png';
+import scrollDown2 from './img/scrollDown2.png';
 import MyProfile from './MyProfile';
-import logoutButton from '../../Imgs/Main/logOutButton.png';
-import loginButton from '../../Imgs/Main/loginButton.png';
-import signUpButton from '../../Imgs/Main/signUpButton.png';
-import Background from '../../Imgs/Main/background.png';
-import Background2 from '../../Imgs/Main/background2.png';
+import logoutButton from './img/logOutButton.png';
+import loginButton from './img/loginButton.png';
+import signUpButton from './img/signUpButton.png';
+import Background from './img/background.png';
+import Background2 from './img/background2.png';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login'
 
