@@ -125,7 +125,7 @@ export const InputWrapperWithAuthorization = styled.div`
         > button {
             width: 78px;
             height: 40px;
-            background-color: ${props => props.isClicked ? '#858585' : '#1A1A1A'};
+            background-color: #1A1A1A;
             border: none;
             color: #1A1A1A;
             border-radius: 0px 2px 2px 0px;
