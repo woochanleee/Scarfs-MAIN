@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './styles';
 import HomeWorkList from './HomeWorkList';
@@ -17,36 +17,46 @@ import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login'
 
 const Main = () => {
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
     const [page, setPage] = useState(1);
     const pageBackground = useRef();
     const homeWorkStateBlock = useRef();
+    const scrollButon = useRef();
     const [modalOn, setModalOn] = useState({
         login: false,
         signup: false
     });
-    useEffect(() => {
-        pageBackground.current.style.backgroundPosition = `${page === 2 ? 'center -108vh' : 'center 100vh'}`;
-        pageBackground.current.style.transition = '300ms linear';
-        setTimeout(() => {
-            pageBackground.current.removeAttribute('style');
-            pageBackground.current.style.backgroundImage = page === 1 ? `url(${Background})` : `url(${Background2})`;
-        }, 300);
-        pageBackground.current.addEventListener('mousewheel', e => {
-            e.stopPropagation();
-            if (e.deltaY > 0 && page === 1)
-                setPage(page + 1);
-            else if (e.deltaY < 0 && page === 2)
-                setPage(page - 1);
-        });
-        if (homeWorkStateBlock.current !== undefined) 
-            homeWorkStateBlock.current.addEventListener('mousewheel', e => {
-                if (page === 1)
-                    e.stopPropagation();
-                else if (e.deltaY < 0 && page === 2)
-                    setPage(page - 1);
-            });
+    const changePage = useCallback(() => {
+        if (isLogin) {
+            scrollButon.current.style.bottom = page === 2 ? '5%' : 'unset';
+            scrollButon.current.style.top = page === 1 ? '5%' : 'unset';
+            setPage(page === 1 ? 2 : 1);
+        }
     }, [page]);
+    useEffect(() => {
+        if (isLogin) {
+            console.log(isLogin);
+            pageBackground.current.style.backgroundPosition = `${page === 2 ? 'center -108vh' : 'center 100vh'}`;
+            pageBackground.current.style.transition = '300ms linear';
+            setTimeout(() => {
+                pageBackground.current.removeAttribute('style');
+                pageBackground.current.style.backgroundImage = page === 1 ? `url(${Background})` : `url(${Background2})`;
+            }, 300);
+            pageBackground.current.addEventListener('mousewheel', function(e) {
+                e.stopPropagation();
+                if (e.deltaY > 0 && page === 1 || e.deltaY < 0 && page === 2)
+                    changePage();
+            });
+            if (homeWorkStateBlock.current !== undefined) 
+                homeWorkStateBlock.current.addEventListener('mousewheel', e => {
+                    if (page === 1)
+                        e.stopPropagation();
+                    else if (e.deltaY < 0 && page === 2)
+                        setPage(page - 1);
+                });
+
+        }
+    }, [isLogin, page]);
     useEffect(() => {
         pageBackground.current.style.backgroundPosition = '0% 0%';
         pageBackground.current.style.backgroundImage = `url(${Background})`;
@@ -83,7 +93,7 @@ const Main = () => {
                             }
                         </section>
                         {
-                            page === 2 ?
+                            page === 2 && isLogin?
                                 <HomeWorkBoardList/> :
                             ''
                         }
@@ -117,7 +127,7 @@ const Main = () => {
                         isLogin ? 
                         <>
                             <MyProfile />
-                            <img src={logoutButton} />
+                            <img src={logoutButton} onClick={() => localStorage.clear()} />
                         </> :
                         <>
                             <img src={loginButton} onClick={() => setModalOn({ ...modalOn, login: true })} />
@@ -125,7 +135,7 @@ const Main = () => {
                         </>
                     }
                 </footer>
-                <S.ScrollButton onClick={() => setPage(state => state === 1 ? 2 : 1)} />
+                <S.ScrollButton ref={scrollButon} page={page} onClick={changePage} />
             </S.MainBackground>
             {
                 modalOn.signup === true ? 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Background from './img/background.png';
 import Background2 from './img/background2.png';
 import scrollDown from './img/scrollButton.png';
+import scrollUp from './img/scrollUpButton.png';
 export const MainBackground = styled.div`
     width: 100vw;
     height: 100vh;
@@ -258,11 +259,18 @@ export const MyProfileBlock = styled.div`
         display: flex;
         justify-content: space-between;
         width: 100%;
-        > article {
+        > article:nth-child(1) {
             display: flex;
             flex-direction: column;
             > span:nth-child(2) {
                 color: #FF5700;
+            }
+        }
+        > article:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+            > span:nth-child(2) {
+                color: #1D73FF;
             }
         }
     }
@@ -273,7 +281,7 @@ export const ScrollButton = styled.button`
     height: 39px;
     border: none;
     padding: 0;
-    background-image: url(${scrollDown});
+    background-image: url(${({ page }) => page === 1 ? scrollDown : scrollUp});
     background-color: transparent;
     position: absolute;
     bottom: 5%;
