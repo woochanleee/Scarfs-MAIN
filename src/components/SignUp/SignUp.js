@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as S from './styles';
-import blackXButton from '../../Imgs/SignUp/blackXButton.png';
-import checkIcon from '../../Imgs/SignUp/checkIcon.png';
+import blackXButton from './img/blackXButton.png';
+import checkIcon from './img/checkIcon.png';
 import ApiDefault from '../utils';
 import axios from 'axios';
 
@@ -19,13 +19,6 @@ const SignUp = ({modalOn, setModalOn}) => {
         password: null,
         chkPassword: null,
     });
-    const [isClicked, setIsClicked] = useState(false);
-    const paintNextButton = () => {
-        setIsPaint(true);
-        setTimeout(() => {
-            setIsPaint(false);
-        }, 1000);
-    };
     useEffect(() => {
         setTimeout(() => {
             setSliding(true);
@@ -42,43 +35,45 @@ const SignUp = ({modalOn, setModalOn}) => {
             let form = new FormData();
             form.append('email', signupInfo.email);
             form.append('code', signupInfo.emailCode);
-            // ApiDefault.post('user/validemail', form).then(res => {
-            //     console.log(res);
-            //     setPage(2);
-            ApiDefault.post('auth', {
-                userEmail: '030219woo@naver.com',
-                userPw: "qwer1234"
+            ApiDefault.post('user/validemail', form).then(res => {
+                console.log(res);
+                setIsPaint(true);
+                setTimeout(() => {
+                    setIsPaint(false);
+                    setPage(2);
+                }, 1000);
+                
             }).catch(err => {
                 console.log(err);
             })
         } else if (page === 2) {
-
+            ApiDefault.post('user', {
+                "userEmail": signupInfo.email,
+                "userPw": signupInfo.password,
+                "userName": signupInfo.name,
+                "userNumber": signupInfo.studentNumber,
+                "authCode": signupInfo.authCode
+            }).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }, [signupInfo, page]);
     const onCheckEmail = useCallback(() => {
         let form = new FormData();
         form.append('email', signupInfo.email);
-        axios({
-            url: 'http://15.164.184.104:8888/user/authemail',
-            method: 'post',
-            data: form,
-            headers: {
-                "Allow-Control-Allow-Origin": "*",
-                'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-                'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(res => {
+        ApiDefault.post('user/authemail', form).then(res => {
             console.log(res);
         }).catch(err => {
-            console.log(err);
+            console.log(err.response.status);
+            switch (err.response.status) {
+                case 410: {
+                    alert('이미 가입된 이메일 입니다.');
+                    break;
+                }
+            }
         })
-        // ApiDefault.post('​user​/authemail', form).then(res => {
-        //     console.log(res);
-        //     setIsClicked(true);
-        // }).catch(err => {
-        //     console.log(err);
-        // })
     }, [signupInfo.email]);
     return (
         <S.ModalBackground>
@@ -106,7 +101,7 @@ const SignUp = ({modalOn, setModalOn}) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <S.InputWrapperWithAuthorization isClicked={isClicked}>
+                                        <S.InputWrapperWithAuthorization>
                                             <span>이메일 주소</span>
                                             <div>
                                                 <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" name="email" onChange={onChange} />
@@ -130,31 +125,32 @@ const SignUp = ({modalOn, setModalOn}) => {
                                     }
                                 </S.NextButtonBlock>
                             </>
-                            :
+                            : ''
+                        }
+                        {
+                            page === 2 ?
                             <>
                                 <section>
                                     <div>
-                                        <S.InputWrapperWithAuthorization>
+                                        <div>
                                             <span>개인 인증코드</span>
-                                            <div>
-                                                <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange}  />
-                                                <button onClick={paintNextButton}>인증</button>
-                                            </div>
-                                        </S.InputWrapperWithAuthorization>
+                                            <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange}  />
+                                        </div>
                                         <div>
                                             <span>비밀번호</span>
-                                            <S.LOGINSIGNUPInput placeholder="6자 이상 12자 이하, 영문과 숫자 조합으로 만드세요." name="password" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput type="password" placeholder="6자 이상 12자 이하, 영문과 숫자 조합으로 만드세요." name="password" onChange={onChange} />
                                         </div>
                                         <div>
                                             <span>비밀번호 확인</span>
-                                            <S.LOGINSIGNUPInput placeholder="비밀번호를 재입력해 주세요." name="chkPassword" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput type="password" placeholder="비밀번호를 재입력해 주세요." name="chkPassword" onChange={onChange} />
                                         </div>
                                     </div>
                                 </section>
-                                <S.NextButtonBlock>
+                                <S.NextButtonBlock onClick={onSubmit}>
                                     <h1>회원가입</h1>
                                 </S.NextButtonBlock> 
                             </>
+                            : ''
                         }
                     </S.MainWrapper>
                     <h4>2020 SCIENCE CLASS</h4>

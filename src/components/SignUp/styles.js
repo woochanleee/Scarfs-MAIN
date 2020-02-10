@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import signupBackground from '../../Imgs/SignUp/signupBackground.png';
+import signupBackground from './img/signupBackground.png';
 import loginBackground from '../Login/img/loginBackground.png';
 
 export const ModalBackground = styled.div`
