@@ -383,9 +383,9 @@ export const PaginationWrapper = styled.footer`
     width: 230px;
     height: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 19px;
-    > div {
+    div {
         width: 30px;
         height: 30px;
         border: 1px solid #2E2E2E;
@@ -395,14 +395,14 @@ export const PaginationWrapper = styled.footer`
         justify-content: center;
         align-items: center;
         > img {
-            width: 10px;
+            // width: 10px;
             height: 10px;
             
         }
     }
     > ul {
-        width: 130px;
-        margin: 0;
+        width: auto;
+        margin: 0 10px;
         padding: 0;
         display: flex;
         justify-content: space-between;
@@ -411,13 +411,25 @@ export const PaginationWrapper = styled.footer`
             list-style: none;
             text-align: center;
             line-height: 30px;
+            width: 30px;
+            height: 30px;
             > a {
                 text-decoration: none;
                 color: #858585;
             }
         }
-        li ~ li {
-            margin-left: 10px;
-        }
     }
+`;
+
+export const PaginationItemBlock = styled.li`
+    ${({ activeStyle }) => activeStyle ? {
+        display: 'block',
+        width: '30px',
+        height: '30px',
+        border: '1px solid #2E2E2E',
+        backgroundColor: '#ffffff',
+        boxSizing: 'border-box',
+        color: '#1A1A1A',
+        fontFamily: 'Roboto'
+    } : ''}
 `;
