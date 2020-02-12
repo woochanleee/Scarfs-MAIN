@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { HomeWorkListWrapper } from './styles';
 import HomeWorkItem from './HomeWorkItem';
-import ApiDefault from '../utils';
+import ApiDefault, { IssuingToken } from '../utils';
+import AuthContext from '../../context/Auth';
 
-const HomeWorkList = () => {
-    const [homework, setHomework] = useState([]);
+const HomeWorkList = ({ homework, setHomework }) => {
     useEffect(() => {
         Date.prototype.yyyymmddWithDot = function() {
             var mm = this.getMonth() + 1; // getMonth() is zero-based
@@ -24,7 +24,6 @@ const HomeWorkList = () => {
             
             return diffDays;
         }
-        
         ApiDefault.get('homework', {
             headers: {
                 Authorization: localStorage.getItem('access_token')

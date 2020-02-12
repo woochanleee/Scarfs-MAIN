@@ -16,8 +16,7 @@ import Background2 from './img/background2.png';
 import SignUp from '../SignUp/SignUp';
 import Login from '../Login/Login'
 
-const Main = () => {
-    const [isLogin, setIsLogin] = useState(true);
+const Main = ({ state, actions }) => {
     const [page, setPage] = useState(1);
     const pageBackground = useRef();
     const homeWorkStateBlock = useRef();
@@ -26,16 +25,16 @@ const Main = () => {
         login: false,
         signup: false
     });
+    const [homework, setHomework] = useState([]);
     const changePage = useCallback(() => {
-        if (isLogin) {
+        if (state.logged) {
             scrollButon.current.style.bottom = page === 2 ? '5%' : 'unset';
             scrollButon.current.style.top = page === 1 ? '5%' : 'unset';
             setPage(page === 1 ? 2 : 1);
         }
-    }, [page]);
+    }, [state.logged, page]);
     useEffect(() => {
-        if (isLogin) {
-            console.log(isLogin);
+        if (state.logged) {
             pageBackground.current.style.backgroundPosition = `${page === 2 ? 'center -108vh' : 'center 100vh'}`;
             pageBackground.current.style.transition = '300ms linear';
             setTimeout(() => {
@@ -56,7 +55,7 @@ const Main = () => {
                 });
 
         }
-    }, [isLogin, page]);
+    }, [state.logged, page]);
     useEffect(() => {
         pageBackground.current.style.backgroundPosition = '0% 0%';
         pageBackground.current.style.backgroundImage = `url(${Background})`;
@@ -93,16 +92,16 @@ const Main = () => {
                             }
                         </section>
                         {
-                            page === 2 && isLogin?
-                                <HomeWorkBoardList/> :
+                            page === 2 && state.logged?
+                                <HomeWorkBoardList homework={homework} setHomework={setHomework} /> :
                             ''
                         }
                         <aside>
                                 <S.HomeWorkStateBlock page={page} ref={homeWorkStateBlock}>
                                 {
-                                    isLogin === true ?
+                                    state.logged === true ?
                                         <>
-                                            <HomeWorkList />
+                                            <HomeWorkList homework={homework} setHomework={setHomework}  />
                                             <div>
                                                 <h4>현재 과제</h4>
                                                 <img src={list} />
@@ -124,10 +123,17 @@ const Main = () => {
                 </main>
                 <footer>
                     {
-                        isLogin ? 
+                        state.logged ? 
                         <>
                             <MyProfile />
-                            <img src={logoutButton} onClick={() => localStorage.clear()} />
+                            <img src={logoutButton} onClick={() => {
+                                if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+                                    localStorage.clear();
+                                    actions.setAccessToken(null);
+                                    actions.setRefreshToken(null);
+                                    actions.setLogged(false);
+                                }
+                            }} />
                         </> :
                         <>
                             <img src={loginButton} onClick={() => setModalOn({ ...modalOn, login: true })} />
@@ -144,7 +150,7 @@ const Main = () => {
             }
             {
                 modalOn.login === true ? 
-                    <Login modalOn={modalOn} setModalOn={setModalOn} /> :
+                    <Login state={state} actions={actions} modalOn={modalOn} setModalOn={setModalOn} /> :
                     ''
             }
         </>

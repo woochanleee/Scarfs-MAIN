@@ -1,12 +1,21 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Main } from './components';
+import AuthContext, { AuthProvider, AuthConsumer } from './context/Auth';
 
 const App = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" component={Main} />
+                <AuthProvider>
+                    <AuthConsumer>
+                        {
+                            ({ state, actions }) => (
+                                <Route path="/" render={() => <Main state={state} actions={actions} />} />
+                            )
+                        }
+                    </AuthConsumer>
+                </AuthProvider>
             </Switch>
         </BrowserRouter>
     );
