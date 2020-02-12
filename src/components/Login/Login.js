@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as S from '../SignUp/styles';
-import blackXButton from '../../Imgs/SignUp/blackXButton.png';
-import ApiDefault, { IssuingToken } from '../utils';
+import blackXButton from '../SignUp/img/blackXButton.png';
+import ApiDefault from '../utils';
+// import AuthContext from '../../context/Auth';
 
-const Login = ({ modalOn, setModalOn }) => {
+const Login = ({ state, actions, modalOn, setModalOn }) => {
     const [authorization, setAutorization] = useState(false);
     const [sliding, setSliding] = useState(false);
     const [isPaint, setIsPaint] = useState(false);
@@ -11,6 +12,7 @@ const Login = ({ modalOn, setModalOn }) => {
         email: null,
         password: null
     });
+    // const { actions } = React.useContext(AuthContext);
     useEffect(() => {
         setTimeout(() => {
             setSliding(true);
@@ -23,28 +25,33 @@ const Login = ({ modalOn, setModalOn }) => {
         });
     }, [loginInfo]);
     const submitLogin = useCallback(async (e) => {
-        console.log('로그인한다!')
         e.preventDefault();
         try {
-            const auth = await ApiDefault.post('/auth', {
-                userId: loginInfo.email,
+            const auth = await ApiDefault.post('auth', {
+                userEmail: loginInfo.email,
                 userPw: loginInfo.password
             });
+            console.log(auth);
+            console.log(actions);
             localStorage.setItem('access_token', auth.data.accessToken);
             localStorage.setItem('refresh_token', auth.data.refreshToken);
+            console.log(auth.data.accessToken);
+            actions.setAccessToken(auth.data.accessToken);
+            actions.setRefreshToken(auth.data.refreshToken);
+            actions.setLogged(true);
+            setModalOn({ ...modalOn, login: false });
         } catch (error) {
-            console.error('Data 없음', error);
+            console.error(error.response);
         }
         let dieToken = true;
-        if (dieToken) {
-            IssuingToken().then(res => {
-                localStorage.setItem('access_token', res.data.accessToken);
-                localStorage.setItem('refresh_token', res.data.refreshToken);
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            });
-        }
+        // localStorage.clear();
+        // if (dieToken) {
+        //     actions.IssuingToken().then(res => {
+        //         console.log(res);
+        //     }, e => {
+        //         console.log(e.message);
+        //     })
+        // }
     }, [loginInfo]);
     return (
         <S.ModalBackground>
