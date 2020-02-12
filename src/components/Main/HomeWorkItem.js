@@ -14,7 +14,7 @@ const HomeWorkItem = ({ data }) => {
             </main>
             <footer>
                 <span>[{data.homeworkType === 0 ? '개인' : data.homeworkType === 1 ? '팀' : '실험'}]</span>
-                <button>{data.submissionStatus ? '제출함' : '제출하지 않음'}</button>
+                <div>{data.submissionStatus ? '제출함' : '제출하지 않음'}</div>
             </footer>
         </HomeWorkItemWrapper>           
     );

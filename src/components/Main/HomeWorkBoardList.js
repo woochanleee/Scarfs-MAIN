@@ -9,16 +9,6 @@ import prevButton from './img/prevButton.png';
 import nextButton from './img/nextButton.png';
 
 const HomeWorkBoardList = ({ homework, match }) => {
-    const activeStyle = {
-        display: 'block',
-        width: '30px',
-        height: '30px',
-        border: '1px solid #2E2E2E',
-        backgroundColor: '#ffffff',
-        boxSizing: 'border-box',
-        color: '#1A1A1A',
-        fontFamily: 'Roboto'
-    };
     const dummyHomework = [
         {
             id: 59,
@@ -190,7 +180,7 @@ const HomeWorkBoardList = ({ homework, match }) => {
         },
         {
             id: 59,
-            homeworkTitle: "이성진 바보",
+            homeworkTitle: "3",
             homeworkType: 2,
             homework_deadline: 1582934400000,
             submissionStatus: false,
@@ -262,7 +252,7 @@ const HomeWorkBoardList = ({ homework, match }) => {
         },
         {
             id: 59,
-            homeworkTitle: "이성진 바보",
+            homeworkTitle: "4",
             homeworkType: 2,
             homework_deadline: 1582934400000,
             submissionStatus: false,
@@ -334,7 +324,7 @@ const HomeWorkBoardList = ({ homework, match }) => {
         },
         {
             id: 59,
-            homeworkTitle: "이성진 바보",
+            homeworkTitle: "5",
             homeworkType: 2,
             homework_deadline: 1582934400000,
             submissionStatus: false,
@@ -421,8 +411,7 @@ const HomeWorkBoardList = ({ homework, match }) => {
             created_at: 1581292800000
         },
     ];
-    console.log(match.params.homeworkid);
-    const [nowPage, setNowPage] = useState(!dummyHomework.length ? undefined : match.params.homeworkid !== undefined ? parseInt(match.params.homeworkid) : 1);
+    const [nowPage, setNowPage] = useState(!dummyHomework.length ? undefined : 1);
     const [startPage, setStartPage] = useState(Math.floor((nowPage - 1) / 5) * 5 + 1);
     const [endPage, setEndPage] = useState(!dummyHomework.length ? undefined : dummyHomework.length % 8 !== 0 ? Math.floor(dummyHomework.length / 8) + 1: Math.floor(dummyHomework.length) / 8);
     const [paginationNumber, setPaginationNumber] = useState([]);
@@ -481,15 +470,13 @@ const HomeWorkBoardList = ({ homework, match }) => {
             </div>
             <PaginationWrapper>
                 {
-                    startPage === 1 ? '' :
-                    // <NavLink exact to={(startPage - 5) === 1 ? '/' : `${startPage - 5}`} onClick={() => setStartPage(startPage - 5) && setNowPage(startPage)}>
+                    !dummyHomework.length ? '' : startPage === 1 ? '' :
                         <div onClick={() => {
                             setStartPage(startPage - 5);
                             setNowPage(startPage - 5);
                         }}>
                             <img src={prevButton} />
                         </div>
-                    // </NavLink>
                 }
                 <ul>
                     {
@@ -499,22 +486,15 @@ const HomeWorkBoardList = ({ homework, match }) => {
                             return <PaginationItemBlock activeStyle={n === nowPage} onClick={() => setNowPage(n)}><span>{n}</span></PaginationItemBlock>;
                         })
                     }
-                    {/* <li><NavLink exact to="/" activeStyle={activeStyle} onClick={() => setPage(1)}>1</NavLink></li>
-                    <li><NavLink exact to="/2" activeStyle={activeStyle} onClick={() => setPage(2)}>2</NavLink></li>
-                    <li><NavLink exact to="/3" activeStyle={activeStyle} onClick={() => setPage(3)}>3</NavLink></li>
-                    <li><NavLink exact to="/4" activeStyle={activeStyle} onClick={() => setPage(4)}>4</NavLink></li>
-                    <li><NavLink exact to="/5" activeStyle={activeStyle} onClick={() => setPage(5)}>5</NavLink></li> */}
                 </ul>
                 {
-                    (startPage - 1) / 5 === Math.floor((endPage - 1) / 5) ? '' :
-                    // <NavLink exact to={`/${startPage + 5}`}>
+                    !dummyHomework.length ? '' : (startPage - 1) / 5 === Math.floor((endPage - 1) / 5) ? '' :
                         <div onClick={() => { 
                             setStartPage(startPage + 5);
                             setNowPage(startPage + 5);
                         }}>
                             <img src={nextButton} />
                         </div>
-                    // </NavLink>
                 }
             </PaginationWrapper>
         </HomeWorkBoardWrapper>

@@ -164,11 +164,13 @@ export const HomeWorkItemWrapper = styled('div')`
         > span {
             color: #ffffff;
         }
-        > button {
+        > div {
             border: none;
             width: 100px;
             height: 25px;
             border-radius: 25px;
+            text-align: center;
+            line-height: 25px;
             background-color: ${ props => props.submit ? '#1D73FF' : '#FF5700' };
             color: ${ props => props.submit ? '#ffffff' : '#000000' };
         }
@@ -394,6 +396,7 @@ export const PaginationWrapper = styled.footer`
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
         > img {
             // width: 10px;
             height: 10px;
@@ -413,6 +416,7 @@ export const PaginationWrapper = styled.footer`
             line-height: 30px;
             width: 30px;
             height: 30px;
+            cursor: pointer;
             > a {
                 text-decoration: none;
                 color: #858585;
