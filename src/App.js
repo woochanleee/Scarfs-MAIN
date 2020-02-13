@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Main } from './components';
-import AuthContext, { AuthProvider, AuthConsumer } from './context/Auth';
+import { AuthProvider, AuthConsumer } from './context/Auth';
 
 const App = () => {
     return (
@@ -10,9 +10,7 @@ const App = () => {
                 <AuthProvider>
                     <AuthConsumer>
                         {
-                            ({ state, actions }) => (
-                                <Route path="/" render={() => <Main state={state} actions={actions} />} />
-                            )
+                            ({ state, actions }) => <Route path="/" render={() => <Main state={state} actions={actions} />} />
                         }
                     </AuthConsumer>
                 </AuthProvider>

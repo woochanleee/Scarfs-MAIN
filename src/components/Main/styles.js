@@ -80,6 +80,7 @@ export const MainBackground = styled.div`
                     > hr {
                         width: 390px;
                         margin: 0;
+                        margin-bottom: 8px;
                     }
                     > p {
                         font-size: 17px;
@@ -133,10 +134,15 @@ export const HomeWorkItemWrapper = styled('div')`
         justify-content: space-between;
         height: 100%;
         > h1 {
+            display: inline-block;
             font-family: 'Roboto';
-            font-size: 25px;
+            font-size: 20px;
             color: #ffffff;
             margin: 0;
+            margin-top: 2px;
+            width: 216px;
+            overflow: hidden;
+            height: 48px;
         }
         > div {
             display: flex;
@@ -149,6 +155,7 @@ export const HomeWorkItemWrapper = styled('div')`
                 margin: 0;
             }
             > span {
+                margin-top: 8px;
                 font-family: 'Roboto';
                 font-size: 15px;
                 color: ${ props => props.submit ? '#1D73FF' : '#FF5700' };
@@ -172,7 +179,13 @@ export const HomeWorkItemWrapper = styled('div')`
             text-align: center;
             line-height: 25px;
             background-color: ${ props => props.submit ? '#1D73FF' : '#FF5700' };
-            color: ${ props => props.submit ? '#ffffff' : '#000000' };
+            color: ${ props => props.submit ? '#1D73FF' : '#FF5700' };
+            > span {
+                font-family: 'Roboto';
+                font-size: 12px;
+                font-weight: bold;
+                color: ${ props => props.submit ? '#ffffff' : '#000000' };
+            }
         }
     }
 `;
@@ -252,7 +265,7 @@ export const MyProfileBlock = styled.div`
     box-sizing: border-box;
     color: #ffffff;
     margin-right: 30px;
-    > h3 {
+    > h3, > h3 > pre {
         font-family: 'Roboto';
         font-size: 20px;
         margin: 0;
@@ -264,6 +277,8 @@ export const MyProfileBlock = styled.div`
         > article:nth-child(1) {
             display: flex;
             flex-direction: column;
+            width: 128px;
+            overflow: hidden;
             > span:nth-child(2) {
                 color: #FF5700;
             }
@@ -274,6 +289,11 @@ export const MyProfileBlock = styled.div`
             > span:nth-child(2) {
                 color: #1D73FF;
             }
+        }
+        > article > span:nth-child(2) {
+            font-family: 'Roboto';
+            font-size: 15px;
+            font-weight: bold;
         }
     }
 `;
@@ -296,11 +316,11 @@ export const ScrollButton = styled.button`
 
 export const HomeWorkBoardWrapper = styled.div`
     position: absolute;
-    top: 8%;
+    top: 14.5%;
     left: 50%;
     transform: translateX(-50%);
-    width: 1274px;
-    height: 790px;
+    width: 1200px;
+    height: 738px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,68 +336,42 @@ export const HomeWorkBoardWrapper = styled.div`
         background-color: #FF5700;
         border: none;
         margin: 0;
-        margin-bottom: 16px;
+        margin-bottom: 36px;
     }
     > div {
         width: 100%;
-        height: 599px;
+        height: 603px;
         text-align: center;
         border-top: 2px solid #858585;
         background-color: #ffffff;
         box-shadow: 0px 8px 16px 0px grey;
-        > header > tr > th {
+        > header > div > span {
             font-weight: bold;
         }
         div {
             width: 100%;
-            border-top: 1px solid #858585;
+            height: 67px;
+            border-bottom: 1px solid #858585;
             display: flex;
+            box-sizing: border-box;
             > img {
                 position: absolute;
                 left: -32.7px;
             }
         }
-        th, td {
+        > main > div:nth-child(8) {
+            border: none;
+        }
+        span {
             font-family: 'Roboto';
-            width: 150px;
+            width: 110px;
             height: 67px;
             line-height: 67px;
             &:nth-child(2) {                
                 flex: 1;
             }
+            overflow: hidden;
         }
-        tr {
-            border-top: 1px solid;
-            border-color: #000000;
-        }
-    }
-`;
-
-export const HomeWorkTable = styled.table`
-    width: 100%;
-    background-color: #000000;
-    > thead {
-        /* border: 1px solid black; */
-        /* border-color: inherit; */
-        > tr {
-            /* border-top: 3px solid #858585; */
-            /* border-color: inherit; */
-            > th {
-                /* border: 1px solid white; */
-            }
-        }
-    }
-    > tbody {
-        /* border: 1px solid black; */
-        /* border-color: inherit; */
-    }
-`;
-
-export const HomeWorkBoardItemBlock = styled.tr`
-    /* border: 1px solid #858585; */
-    color: black;
-    > td {
-        /* border: 1px solid white; */
     }
 `;
 

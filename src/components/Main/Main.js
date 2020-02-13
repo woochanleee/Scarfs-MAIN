@@ -4,7 +4,6 @@ import * as S from './styles';
 import HomeWorkList from './HomeWorkList';
 import HomeWorkBoardList from './HomeWorkBoardList';
 import list from './img/list.png';
-import stair from './img/stair.png';
 import scrollDown from './img/scrollDown.png';
 import scrollDown2 from './img/scrollDown2.png';
 import MyProfile from './MyProfile';
@@ -43,7 +42,7 @@ const Main = ({ state, actions }) => {
             }, 300);
             pageBackground.current.addEventListener('mousewheel', function(e) {
                 e.stopPropagation();
-                if (e.deltaY > 0 && page === 1 || e.deltaY < 0 && page === 2)
+                if ((e.deltaY > 0 && page === 1) || (e.deltaY < 0 && page === 2))
                     changePage();
             });
             if (homeWorkStateBlock.current !== undefined) 
@@ -68,10 +67,10 @@ const Main = ({ state, actions }) => {
                         <h2>SCARFS</h2>
                         <ul>
                             <li>
-                                <Link>과제</Link>
+                                <Link to="/">과제</Link>
                             </li>
                             <li>
-                                <Link>QnA</Link>
+                                <Link to="/">QnA</Link>
                             </li>
                         </ul>
                     </div>
@@ -93,7 +92,7 @@ const Main = ({ state, actions }) => {
                         </section>
                         {
                             page === 2 && state.logged?
-                                <HomeWorkBoardList homework={homework} setHomework={setHomework} /> :
+                                <HomeWorkBoardList state={state} actions={actions} homework={homework} setHomework={setHomework} /> :
                             ''
                         }
                         <aside>
@@ -101,12 +100,12 @@ const Main = ({ state, actions }) => {
                                 {
                                     state.logged === true ?
                                         <>
-                                            <HomeWorkList homework={homework} setHomework={setHomework}  />
+                                            <HomeWorkList state={state} actions={actions} homework={homework} setHomework={setHomework}  />
                                             <div>
                                                 <h4>현재 과제</h4>
-                                                <img src={list} />
+                                                <img alt="줄이미지" src={list} />
                                             </div>
-                                        </> :                                    ''
+                                        </> : ''
                                 }
                                     </S.HomeWorkStateBlock>
                             <S.ScrollStateBlock page={page}>
@@ -115,7 +114,7 @@ const Main = ({ state, actions }) => {
                                         <div />
                                         <div />
                                     </div>
-                                    <img src={page === 1 ? scrollDown : scrollDown2} />
+                                    <img alt="스크롤이미지" src={page === 1 ? scrollDown : scrollDown2} />
                                 </div>
                             </S.ScrollStateBlock>
                         </aside>
@@ -125,8 +124,8 @@ const Main = ({ state, actions }) => {
                     {
                         state.logged ? 
                         <>
-                            <MyProfile />
-                            <img src={logoutButton} onClick={() => {
+                            <MyProfile state={state} actions={actions} />
+                            <img alt="로그아웃버튼" src={logoutButton} onClick={() => {
                                 if (window.confirm("정말 로그아웃 하시겠습니까?")) {
                                     localStorage.clear();
                                     actions.setAccessToken(null);
@@ -136,12 +135,12 @@ const Main = ({ state, actions }) => {
                             }} />
                         </> :
                         <>
-                            <img src={loginButton} onClick={() => setModalOn({ ...modalOn, login: true })} />
-                            <img src={signUpButton} onClick={() => setModalOn({ ...modalOn, signup: true })}/>
+                            <img alt="로그인버튼" src={loginButton} onClick={() => setModalOn({ ...modalOn, login: true })} />
+                            <img alt="회원가입버튼" src={signUpButton} onClick={() => setModalOn({ ...modalOn, signup: true })}/>
                         </>
                     }
                 </footer>
-                <S.ScrollButton ref={scrollButon} page={page} onClick={changePage} />
+                { state.logged && <S.ScrollButton ref={scrollButon} page={page} onClick={changePage} /> }
             </S.MainBackground>
             {
                 modalOn.signup === true ? 

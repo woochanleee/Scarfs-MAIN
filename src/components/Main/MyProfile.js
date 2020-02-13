@@ -1,39 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MyProfileBlock } from './styles';
-import ApiDefault, { IssuingToken } from '../utils';
-const MyProfile = () => {
+import ApiDefault from '../utils';
+
+const useForceUpdate = () => useState()[1];
+
+const MyProfile = ({ state, actions }) => {
     const [myInfo, setMyInfo] = useState({});
-    const myProfile = {
-        studentNumber: 1201,
-        name: '강신희',
-        submit: '4',
-        noSubmit: '2'
-    };
     useEffect(() => {
         ApiDefault.get('user', {
             headers: {
-                Authorization: localStorage.getItem('access_token')
+                Authorization: state.accessToken
             }
         }).then(res => {
-            console.log(res);
             setMyInfo(res.data);
-        }).catch(e => {
-            console.log(e.response);
-            // if (e.response.status === 410)
-                // IssuingToken();
-        })
+        }).catch(e => {});
     }, []);
     return (
         <MyProfileBlock>
-            <h3>{myInfo.userNumber}{myInfo.userName}</h3>
+            <h3><pre>{String(myInfo.userNumber)[0]}학년 {String(myInfo.userNumber)[1]}반 {myInfo.userName}</pre></h3>
             <section>
                 <article>
                     <span>남은과제</span>
-                    <span>{myInfo.userEmail}</span>
+                    <span>{myInfo.homeworkLeft}</span>
                 </article>
                 <article>
                     <span>제출한 과제</span>
-                    <span>{myInfo.userType}</span>
+                    <span>{myInfo.homeworkDone}</span>
                 </article>
             </section>
         </MyProfileBlock>

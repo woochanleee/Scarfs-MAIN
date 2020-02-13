@@ -2,17 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import * as S from '../SignUp/styles';
 import blackXButton from '../SignUp/img/blackXButton.png';
 import ApiDefault from '../utils';
-// import AuthContext from '../../context/Auth';
 
 const Login = ({ state, actions, modalOn, setModalOn }) => {
-    const [authorization, setAutorization] = useState(false);
     const [sliding, setSliding] = useState(false);
-    const [isPaint, setIsPaint] = useState(false);
     const [loginInfo, setLoginInfo] = useState({
         email: null,
         password: null
     });
-    // const { actions } = React.useContext(AuthContext);
     useEffect(() => {
         setTimeout(() => {
             setSliding(true);
@@ -31,27 +27,15 @@ const Login = ({ state, actions, modalOn, setModalOn }) => {
                 userEmail: loginInfo.email,
                 userPw: loginInfo.password
             });
-            console.log(auth);
-            console.log(actions);
             localStorage.setItem('access_token', auth.data.accessToken);
             localStorage.setItem('refresh_token', auth.data.refreshToken);
-            console.log(auth.data.accessToken);
             actions.setAccessToken(auth.data.accessToken);
             actions.setRefreshToken(auth.data.refreshToken);
             actions.setLogged(true);
             setModalOn({ ...modalOn, login: false });
         } catch (error) {
-            console.error(error.response);
+            alert('아이디와 비밀번호를 확인해주세요.');
         }
-        let dieToken = true;
-        // localStorage.clear();
-        // if (dieToken) {
-        //     actions.IssuingToken().then(res => {
-        //         console.log(res);
-        //     }, e => {
-        //         console.log(e.message);
-        //     })
-        // }
     }, [loginInfo]);
     return (
         <S.ModalBackground>
@@ -78,7 +62,7 @@ const Login = ({ state, actions, modalOn, setModalOn }) => {
                     <h4>2020 SCIENCE CLASS</h4>
                 </S.LoginLeftBlock>
                 <S.LoginRightBlock>
-                    <img src={blackXButton} onClick={() => setModalOn({ ...modalOn, login: false })} />
+                    <img alt="종료버튼" src={blackXButton} onClick={() => setModalOn({ ...modalOn, login: false })} />
                     <div>
                         <h1>아직 회원이 아니신가요?<br/>
                         지금 바로 가입하세요! </h1>

@@ -4,7 +4,7 @@ import { HomeWorkItemWrapper } from './styles';
 const HomeWorkItem = ({ data }) => {
     // homeworkType: 개인0 팀1 실험2
     return (
-        <HomeWorkItemWrapper submit={data.submit}>
+        <HomeWorkItemWrapper submit={data.submissionStatus}>
             <main>
                 <h1>{data.homeworkTitle}</h1>
                 <div>
@@ -14,7 +14,7 @@ const HomeWorkItem = ({ data }) => {
             </main>
             <footer>
                 <span>[{data.homeworkType === 0 ? '개인' : data.homeworkType === 1 ? '팀' : '실험'}]</span>
-                <div>{data.submissionStatus ? '제출함' : '제출하지 않음'}</div>
+                <div><span>{data.submissionStatus ? '제출함' : '제출하지 않음'}</span></div>
             </footer>
         </HomeWorkItemWrapper>           
     );

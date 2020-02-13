@@ -3,11 +3,9 @@ import * as S from './styles';
 import blackXButton from './img/blackXButton.png';
 import checkIcon from './img/checkIcon.png';
 import ApiDefault from '../utils';
-import axios from 'axios';
 
 const SignUp = ({modalOn, setModalOn}) => {
     const [page, setPage] = useState(1);
-    const [authorization, setAutorization] = useState(false);
     const [sliding, setSliding] = useState(false);
     const [isPaint, setIsPaint] = useState(false);
     const [signupInfo, setSignupInfo] = useState({
@@ -31,20 +29,30 @@ const SignUp = ({modalOn, setModalOn}) => {
         });
     }, [signupInfo]);
     const onSubmit = useCallback(e => {
+        e.preventDefault();
         if (page === 1) {
             let form = new FormData();
             form.append('email', signupInfo.email);
             form.append('code', signupInfo.emailCode);
             ApiDefault.post('user/validemail', form).then(res => {
-                console.log(res);
                 setIsPaint(true);
                 setTimeout(() => {
                     setIsPaint(false);
                     setPage(2);
                 }, 1000);
-                
             }).catch(err => {
-                console.log(err);
+                switch (err.response.status) {
+                    case 400: 
+                        alert('입력칸은 비워둘 수 없습니다.');
+                        break;
+                    case 401:
+                        alert('인증코드가 일치하지 않습니다.');
+                        break;
+                    case 409:
+                        alert('이미 가입된 사용자 입니다.');
+                        break;
+                    default:
+                }
             })
         } else if (page === 2) {
             ApiDefault.post('user', {
@@ -54,9 +62,8 @@ const SignUp = ({modalOn, setModalOn}) => {
                 "userNumber": signupInfo.studentNumber,
                 "authCode": signupInfo.authCode
             }).then(res => {
-                console.log(res);
+                setModalOn({ ...modalOn, signup: false })
             }).catch(err => {
-                console.log(err);
             })
         }
     }, [signupInfo, page]);
@@ -64,13 +71,15 @@ const SignUp = ({modalOn, setModalOn}) => {
         let form = new FormData();
         form.append('email', signupInfo.email);
         ApiDefault.post('user/authemail', form).then(res => {
-            console.log(res);
+            alert('인증코드가 이메일로 발송되었습니다.');
         }).catch(err => {
-            console.log(err.response.status);
             switch (err.response.status) {
                 case 410: {
                     alert('이미 가입된 이메일 입니다.');
                     break;
+                }
+                default : {
+                    
                 }
             }
         })
@@ -83,7 +92,7 @@ const SignUp = ({modalOn, setModalOn}) => {
                     <h4>SCARFS</h4>
                 </S.SignUpLeftBlock>
                 <S.SignUpRightBlock>
-                    <img src={blackXButton}  onClick={() => setModalOn({ ...modalOn, signup: false })}/>
+                    <img alt="종료버튼" src={blackXButton}  onClick={() => setModalOn({ ...modalOn, signup: false })}/>
                     <S.MainWrapper>
                         <h1>SIGNUP</h1>
                         { 
@@ -108,17 +117,17 @@ const SignUp = ({modalOn, setModalOn}) => {
                                                 <button onClick={onCheckEmail}>인증</button>
                                             </div>
                                         </S.InputWrapperWithAuthorization>
-                                        <div>
+                                        <form onSubmit={onSubmit}>
                                             <span>이메일 인증</span>
                                             <S.LOGINSIGNUPInput placeholder="이메일로 전송된 인증코드를 입력하세요." name="emailCode" onChange={onChange} />
-                                        </div>
+                                        </form>
                                     </div>
                                 </section>
                                 <S.NextButtonBlock isPaint={isPaint} onClick={onSubmit} >
                                     {
                                         isPaint === true ?
                                             <div>
-                                                <img src={checkIcon} />
+                                                <img alt="확인이미지" src={checkIcon} />
                                                 <p>학생 정보가 인증되었습니다.</p>
                                             </div>
                                         : <h1>Next</h1>

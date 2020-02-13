@@ -24,19 +24,15 @@ const AuthProvider = ({ children }) => {
             localStorage.setItem('refresh_token', putAuth.data.refreshToken);
             setAccessToken(putAuth.data.accessToken);
             setRefreshToken(putAuth.data.refreshToken);
-            console.log(putAuth);
             return 'success';
         } catch (e) {
-            console.log(e);
             throw new Error(e.response.status);
         }
     };
     React.useEffect(() => {
         IssuingToken().then(res => {
             setLogged(true);
-            console.log(res);
         }).catch(e => {
-            console.log(e);
         })
     }, []);
 
