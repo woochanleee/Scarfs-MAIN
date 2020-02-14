@@ -9,13 +9,13 @@ const SignUp = ({modalOn, setModalOn}) => {
     const [sliding, setSliding] = useState(false);
     const [isPaint, setIsPaint] = useState(false);
     const [signupInfo, setSignupInfo] = useState({
-        name: null,
-        studentNumber: null,
-        personalCode: null,
-        email: null,
-        emailCode: null,
-        password: null,
-        chkPassword: null,
+        name: "",
+        studentNumber: "",
+        personalCode: "",
+        email: "",
+        emailCode: "",
+        password: "",
+        chkPassword: "",
     });
     useEffect(() => {
         setTimeout(() => {
@@ -31,6 +31,7 @@ const SignUp = ({modalOn, setModalOn}) => {
     const onSubmit = useCallback(e => {
         e.preventDefault();
         if (page === 1) {
+             if (!signupInfo.name || !signupInfo.studentNumber || !signupInfo.email || !signupInfo.emailCode) return alert('모든 입력칸은 빈칸일 수 없습니다.');
             let form = new FormData();
             form.append('email', signupInfo.email);
             form.append('code', signupInfo.emailCode);
@@ -52,18 +53,22 @@ const SignUp = ({modalOn, setModalOn}) => {
                         alert('이미 가입된 사용자 입니다.');
                         break;
                     default:
+                        alert('인증에 실패하였습니다.');
                 }
             })
         } else if (page === 2) {
+            if (!signupInfo.personalCode || ! signupInfo.password || !signupInfo.chkPassword) return alert('모든 입력칸은 빈칸일 수 없습니다.');
+            if (signupInfo.password !== signupInfo.chkPassword) return alert('비밀번호가 일치하지 않습니다.');
             ApiDefault.post('user', {
                 "userEmail": signupInfo.email,
                 "userPw": signupInfo.password,
                 "userName": signupInfo.name,
                 "userNumber": signupInfo.studentNumber,
-                "authCode": signupInfo.authCode
+                "authCode": signupInfo.personalCode
             }).then(res => {
-                setModalOn({ ...modalOn, signup: false })
+                setModalOn({ ...modalOn, signup: false });
             }).catch(err => {
+                alert('회원가입에 실패하였습니다.');
             })
         }
     }, [signupInfo, page]);
@@ -102,24 +107,24 @@ const SignUp = ({modalOn, setModalOn}) => {
                                     <div>
                                         <div>
                                             <span>이름</span>
-                                            <S.LOGINSIGNUPInput placeholder="이지은" name="name" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput placeholder="이지은" name="name" onChange={onChange} value={signupInfo.name} />
                                         </div>
                                         <div>
                                             <span>학번</span>
-                                            <S.LOGINSIGNUPInput placeholder="1101" name="studentNumber" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput placeholder="1101" name="studentNumber" onChange={onChange} value={signupInfo.studentNumber} />
                                         </div>
                                     </div>
                                     <div>
                                         <S.InputWrapperWithAuthorization>
                                             <span>이메일 주소</span>
                                             <div>
-                                                <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" name="email" onChange={onChange} />
+                                                <S.LOGINSIGNUPInput placeholder="sample@dsm.hs.kr" name="email" onChange={onChange} value={signupInfo.email} />
                                                 <button onClick={onCheckEmail}>인증</button>
                                             </div>
                                         </S.InputWrapperWithAuthorization>
                                         <form onSubmit={onSubmit}>
                                             <span>이메일 인증</span>
-                                            <S.LOGINSIGNUPInput placeholder="이메일로 전송된 인증코드를 입력하세요." name="emailCode" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput placeholder="이메일로 전송된 인증코드를 입력하세요." name="emailCode" onChange={onChange} value={signupInfo.emailCode} />
                                         </form>
                                     </div>
                                 </section>
@@ -143,16 +148,16 @@ const SignUp = ({modalOn, setModalOn}) => {
                                     <div>
                                         <div>
                                             <span>개인 인증코드</span>
-                                            <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange}  />
+                                            <S.LOGINSIGNUPInput placeholder="각자 본인에게 부여된 인증번호를 입력하세요." name="personalCode" onChange={onChange} value={signupInfo.personalCode}  />
                                         </div>
                                         <div>
                                             <span>비밀번호</span>
-                                            <S.LOGINSIGNUPInput type="password" placeholder="6자 이상 12자 이하, 영문과 숫자 조합으로 만드세요." name="password" onChange={onChange} />
+                                            <S.LOGINSIGNUPInput type="password" placeholder="6자 이상 12자 이하, 영문과 숫자 조합으로 만드세요." name="password" onChange={onChange} value={signupInfo.password} />
                                         </div>
-                                        <div>
+                                        <form onSubmit={onSubmit}>
                                             <span>비밀번호 확인</span>
-                                            <S.LOGINSIGNUPInput type="password" placeholder="비밀번호를 재입력해 주세요." name="chkPassword" onChange={onChange} />
-                                        </div>
+                                            <S.LOGINSIGNUPInput type="password" placeholder="비밀번호를 재입력해 주세요." name="chkPassword" onChange={onChange} value={signupInfo.chkPassword} />
+                                        </form>
                                     </div>
                                 </section>
                                 <S.NextButtonBlock onClick={onSubmit}>
