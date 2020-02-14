@@ -17,10 +17,9 @@ export const LOGINSIGNUPWrapper = styled.div`
     width: 1166px;
     height: 533px;
     position: relative;
-    top: 50%;
-    left: 150%;
-    transform: none;
-    ${props => props.sliding === true ? `transform: translate(-204%, -50%)` : ``};
+    top: ${props => props.sliding === true ? '50%' : '100%'};
+    left: ${props => props.sliding === true ? '50%' : '100%'};
+    transform: translate(-50%, -50%);
     display: flex;
     transition: all 0.5s linear;
     `;
