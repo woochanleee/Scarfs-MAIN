@@ -316,11 +316,12 @@ export const ScrollButton = styled.button`
 
 export const HomeWorkBoardWrapper = styled.div`
     position: absolute;
-    top: 14.5%;
+    bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
     width: 1200px;
-    height: 738px;
+    height: auto;
+    margin-bottom: 13vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -331,6 +332,7 @@ export const HomeWorkBoardWrapper = styled.div`
         margin-bottom: 10px;
     }
     > hr {
+        display: table;
         width: 55px;
         height: 5px;
         background-color: #FF5700;
@@ -340,7 +342,7 @@ export const HomeWorkBoardWrapper = styled.div`
     }
     > div {
         width: 100%;
-        height: 603px;
+        height: 540;
         text-align: center;
         border-top: 2px solid #858585;
         background-color: #ffffff;
@@ -350,7 +352,7 @@ export const HomeWorkBoardWrapper = styled.div`
         }
         div {
             width: 100%;
-            height: 67px;
+            height: 60px;
             border-bottom: 1px solid #858585;
             display: flex;
             box-sizing: border-box;
@@ -372,6 +374,12 @@ export const HomeWorkBoardWrapper = styled.div`
             }
             overflow: hidden;
         }
+    }
+`;
+
+export const HomeWorkBoardItemWrapper = styled.div`
+    > span:nth-child(4) {
+        color: ${props => props.isImportant ? '#FF5700' :'#1D73FF'};
     }
 `;
 
