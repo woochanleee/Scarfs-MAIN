@@ -47,7 +47,6 @@ const HomeWorkBoardList = ({ state, actions, homework }) => {
                             if (index >= (nowPage * 8) || index < (nowPage - 1) * 8) return false;
                             let isTeam = null;
                             let isImportant = (new Date(data['homework_deadline']).getTime() - new Date().getTime()) < 1 * 24 * 60 * 60 * 1000 * 2 ? true : false;
-                            console.log(isImportant);
                             const getTeam = () => {
                                 ApiDefault.get('team', {
                                     params: {
