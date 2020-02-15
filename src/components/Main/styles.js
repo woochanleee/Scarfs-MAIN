@@ -342,7 +342,7 @@ export const HomeWorkBoardWrapper = styled.div`
     }
     > div {
         width: 100%;
-        height: 540;
+        height: 540px;
         text-align: center;
         border-top: 2px solid #858585;
         background-color: #ffffff;
