@@ -29,7 +29,7 @@ const HomeWorkList = ({ state, actions, homework, setHomework }) => {
                     Authorization: state.accessToken
                 }
             }).then(res => {
-                setHomework(res.data);
+                // setHomework(res.data);
             }).catch(e => {
                 // actions.IssuingToken().then(() => getHomework()).catch(() => actions.setLogged(false));
             })

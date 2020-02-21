@@ -6,7 +6,6 @@ import scrollUp from './img/scrollUpButton.png';
 export const MainBackground = styled.div`
     width: 100vw;
     height: 100vh;
-    /* background-image: url(${Background}); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0vw 0vh;
@@ -65,6 +64,7 @@ export const MainBackground = styled.div`
             margin-left: 8.5vw;
             > section {
                 > article {
+                    user-select: none;
                     color: #ffffff;
                     font-family: 'Roboto';
                     font-weight: 100;

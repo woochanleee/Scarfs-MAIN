@@ -57,7 +57,7 @@ const SignUp = ({modalOn, setModalOn}) => {
                 }
             })
         } else if (page === 2) {
-            if (!signupInfo.personalCode || ! signupInfo.password || !signupInfo.chkPassword) return alert('모든 입력칸은 빈칸일 수 없습니다.');
+            // if (!signupInfo.personalCode || ! signupInfo.password || !signupInfo.chkPassword) return alert('모든 입력칸은 빈칸일 수 없습니다.');
             if (signupInfo.password !== signupInfo.chkPassword) return alert('비밀번호가 일치하지 않습니다.');
             ApiDefault.post('user', {
                 "userEmail": signupInfo.email,
@@ -78,13 +78,14 @@ const SignUp = ({modalOn, setModalOn}) => {
         ApiDefault.post('user/authemail', form).then(res => {
             alert('인증코드가 이메일로 발송되었습니다.');
         }).catch(err => {
+            console.log(err);
             switch (err.response.status) {
                 case 410: {
                     alert('이미 가입된 이메일 입니다.');
                     break;
                 }
                 default : {
-                    
+                    alert('실패하였습니다.');
                 }
             }
         })

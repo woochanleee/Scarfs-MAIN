@@ -5,7 +5,7 @@ import ApiDefault from '../utils';
 const useForceUpdate = () => useState()[1];
 
 const MyProfile = ({ state, actions }) => {
-    const [myInfo, setMyInfo] = useState({});
+    const [myInfo, setMyInfo] = useState(undefined);
     useEffect(() => {
         ApiDefault.get('user', {
             headers: {
@@ -13,9 +13,12 @@ const MyProfile = ({ state, actions }) => {
             }
         }).then(res => {
             setMyInfo(res.data);
-        }).catch(e => {});
+        }).catch(e => {
+            setMyInfo(undefined)
+        });
     }, []);
     return (
+        myInfo !== undefined &&  
         <MyProfileBlock>
             <h3><pre>{String(myInfo.userNumber)[0]}학년 {String(myInfo.userNumber)[1]}반 {myInfo.userName}</pre></h3>
             <section>

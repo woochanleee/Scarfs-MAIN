@@ -127,10 +127,10 @@ const Main = ({ state, actions }) => {
                             <MyProfile state={state} actions={actions} />
                             <img alt="로그아웃버튼" src={logoutButton} onClick={() => {
                                 if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+                                    actions.setLogged(false);
                                     localStorage.clear();
                                     actions.setAccessToken(null);
                                     actions.setRefreshToken(null);
-                                    actions.setLogged(false);
                                 }
                             }} />
                         </> :
